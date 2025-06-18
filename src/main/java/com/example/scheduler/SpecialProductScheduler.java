@@ -13,14 +13,13 @@ public class SpecialProductScheduler {
 
     private final RestTemplate restTemplate;
 
-    @Scheduled(cron = "0 */1 * * * ?")
+//    @Scheduled(fixedRate = 10000)  // 10초마다 실행
+    @Scheduled(cron = "00 55 16 * * ?")
     public void processSpecialProducts() {
-        log.info("🟢 스케줄러 메서드가 실행되었습니다!");
-
         try {
+            log.info("스케줄러 정상 실행됨");
             restTemplate.postForObject("http://backend:8080/api/v1/specialProduct/deleteExpired", null, Void.class);
             restTemplate.postForObject("http://backend:8080/api/v1/specialProduct/approveStarting", null, Void.class);
-            log.info("스케줄러 정상 실행됨");
         } catch (Exception e) {
             log.error("스케줄러 실행 중 오류 발생", e);
         }

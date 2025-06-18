@@ -10,4 +10,4 @@ WORKDIR /app
 
 COPY build/libs/scheduler-0.0.1-SNAPSHOT.jar scheduler.jar
 
-CMD ["java","-Dspring.profiles.active=prod", "-jar", "/app/scheduler.jar"]
+#CMD ["java", "-jar", "/app/scheduler.jar"]
