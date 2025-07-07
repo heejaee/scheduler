@@ -14,6 +14,7 @@ public class SpecialProductScheduler {
 
     private final RestTemplate restTemplate;
     private final AlarmService alarmService;
+    private final Executor schedulerExecutor;
 
     // 매일 자정 스케줄러 실행
 //    @Scheduled(cron = "00 55 16 * * ?")
@@ -46,7 +47,7 @@ public class SpecialProductScheduler {
             } catch (Exception e) {
                 log.error("만료 특가상품 삭제 실패", e);
             }
-        });
+        }, schedulerExecutor);
 
         CompletableFuture<Void> approveFuture = CompletableFuture.runAsync(() -> {
             try {
@@ -55,7 +56,7 @@ public class SpecialProductScheduler {
             } catch (Exception e) {
                 log.error("시작 예정 특가상품 승인 실패", e);
             }
-        });
+        }, schedulerExecutor);
 
         CompletableFuture<Void> alarmFuture = CompletableFuture.runAsync(() -> {
             try {
@@ -65,7 +66,7 @@ public class SpecialProductScheduler {
             } catch (Exception e) {
                 log.error("마감임박 상태 처리 실패", e);
             }
-        });
+        }, schedulerExecutor);
 
         // 모든 작업 완료까지 대기
         CompletableFuture.allOf(deleteFuture, approveFuture, alarmFuture).join();
