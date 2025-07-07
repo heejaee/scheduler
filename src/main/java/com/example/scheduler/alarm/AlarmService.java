@@ -2,10 +2,7 @@ package com.example.scheduler.alarm;
 
 import com.example.scheduler.dto.SpecialProductDto;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,8 +23,8 @@ public class AlarmService {
             log.warn("Redis에서 특가상품 키가 없음!");
             return;
         }
-        LocalDate today = LocalDate.now();
 
+        LocalDate today = LocalDate.now();
         for (String key : keys) {
             SpecialProductDto dto = redisTemplate.opsForValue().get(key);
             if (ChronoUnit.DAYS.between(today, dto.getDiscountEndDate()) <= 5) {
@@ -38,5 +35,4 @@ public class AlarmService {
             }
         }
     }
-
 }
