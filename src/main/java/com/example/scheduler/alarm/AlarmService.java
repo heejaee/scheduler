@@ -18,7 +18,7 @@ public class AlarmService {
 
     public void updateExpiringStatusInCache() {
         log.info("마감임박 특가상품 확인 시작");
-        Set<String> keys = redisTemplate.keys("specialProductCache::specialProduct:*");
+        Set<String> keys = redisTemplate.keys("cache::specialProduct:*");
         if (keys.isEmpty()) {
             log.warn("Redis에서 특가상품 키가 없음!");
             return;
