@@ -17,8 +17,7 @@ public class SpecialProductScheduler {
     private final Executor schedulerExecutor;
 
     // 매일 자정 스케줄러 실행
-//    @Scheduled(cron = "*/1 * * * * *")
-    @Scheduled(cron = "00 17 10 * * ?")
+    @Scheduled(cron = "0 0 0 * * ?")
     public void processSpecialProducts2() {
         log.info("스케줄러 실행 시작");
 
