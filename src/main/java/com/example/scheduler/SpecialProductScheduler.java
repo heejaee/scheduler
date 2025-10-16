@@ -16,8 +16,9 @@ public class SpecialProductScheduler {
     private final WebClient webClient;
     private final AlarmService alarmService;
 
-    @Scheduled(cron = "0 0 15 * * ?")
-    public void processSpecialProducts() {
+//    @Scheduled(cron = "0 0 15 * * ?")
+@Scheduled(cron = "* * * * * *")
+public void processSpecialProducts() {
         log.info("스케줄러 실행 시작");
 
         Mono<Void> deleteMono = webClient.post()
