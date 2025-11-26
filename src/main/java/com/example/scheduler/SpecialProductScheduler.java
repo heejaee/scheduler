@@ -26,16 +26,14 @@ public void processSpecialProducts() {
                 .retrieve()
                 .bodyToMono(Void.class)
                 .doOnSuccess(response -> log.info("만료 특가상품 삭제 완료"))
-                .doOnError(error -> log.error("만료 특가상품 삭제 실패", error))
-                .then();
+                .doOnError(error -> log.error("만료 특가상품 삭제 실패", error));
 
         Mono<Void> approveMono = webClient.post()
                 .uri("/api/v1/specialProduct/approveStarting")
                 .retrieve()
                 .bodyToMono(Void.class)
                 .doOnSuccess(response -> log.info("시작 예정 특가상품 승인 완료"))
-                .doOnError(error -> log.error("시작 예정 특가상품 승인 실패", error))
-                .then();
+                .doOnError(error -> log.error("시작 예정 특가상품 승인 실패", error));
 
         // 병렬 비동기 처리 후 후속 처리까지 연결
         Mono.when(deleteMono, approveMono)

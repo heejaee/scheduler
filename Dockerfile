@@ -1,4 +1,4 @@
-FROM openjdk:17-jdk-slim
+FROM eclipse-temurin:17-jdk-jammy
 
 # 필수 패키지 설치를 위한 설정
 RUN apt-get update && \
